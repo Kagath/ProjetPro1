@@ -1,10 +1,19 @@
 import os
 import sys
+
 from pymetasploit3.msfrpc import MsfRpcClient
 from nmap_scan import run_nmap_scan
-from scrape_nvd import scrape_nvd_vulnerabilities
-from check_email_leak import check_email_leak
-from security_dashboard import generate_security_dashboard
+from scrape_nvd import run_nvd_scrape
+from check_email_leak import run_email_leak_scan
+from dashboard import generate_dashboard
+
+def create_directory(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+# Vérifiez et créez les dossiers 'logs' et 'results'
+create_directory("logs")
+create_directory("results")
 
 def main():
     while True:
@@ -31,7 +40,7 @@ def main():
             email = input("Entrez l'adresse e-mail à vérifier pour les fuites de données: ")
             check_email_leak(email)
         elif choice == "5":
-            generate_security_dashboard()
+            dashboard()
         elif choice == "0":
             print("Au revoir!")
             sys.exit(0)
