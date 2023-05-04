@@ -18,7 +18,7 @@ Les fonctionnalités incluent :
 sudo apt update && sudo apt upgrade
 
 2. Installez les dépendances requises:
-sudo apt install -y curl git gnupg2 postgresql
+sudo apt install -y curl git gnupg2 postgresql pip
 
 3. Ajoutez le référentiel Metasploit Framework:
 curl -fsSL https://apt.metasploit.com/metasploit-framework.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/metasploit-archive-keyring.gpg
