@@ -49,3 +49,32 @@ def generate_dashboard():
                 print(f"Le fichier {log_file} est introuvable.")
 
     print("\nTableau de bord de sécurité créé avec succès dans results/dashboard.txt.")
+
+def clear_logs_and_results():
+    log_files = [
+        "logs/nmap_scan.log",
+        "logs/metasploit_scan.log",
+        "logs/scrape_nvd.log",
+        "logs/error.log",
+        "logs/info.log",
+        "logs/check_email_leak.log",
+    ]
+
+    result_files = [
+        "results/nmap_results.txt",
+        "results/metasploit_results.txt",
+        "results/nvd_results.txt",
+        "results/email_leak_results.txt",
+        "results/dashboard.txt",
+    ]
+
+    files_to_remove = log_files + result_files
+
+    for file_path in files_to_remove:
+        try:
+            os.remove(file_path)
+            print(f"Fichier supprimé : {file_path}")
+        except FileNotFoundError:
+            print(f"Le fichier {file_path} est introuvable.")
+
+    print("\nTous les fichiers de résultats et de journaux ont été supprimés.")
