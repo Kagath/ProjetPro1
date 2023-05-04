@@ -28,8 +28,7 @@ def main():
         choice = input("Entrez le numéro de votre choix: ")
 
         if choice == "1":
-            targets = input("Entrez les cibles pour le scan Nmap (IPs ou plages d'IPs): ")
-            run_nmap_scan(targets)
+            run_nmap_scan()
         elif choice == "2":
             target = input("Entrez la cible pour la simulation d'attaque Metasploit (IP): ")
             run_metasploit_scan(target)
