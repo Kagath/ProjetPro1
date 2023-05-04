@@ -1,5 +1,5 @@
 from nmap_scan import run_nmap_scan
-from metasploit_scan import run_metasploit_scan
+from pymetasploit3.msfrpc import MsfRpcClient
 from scrape_nvd import scrape_nvd_vulnerabilities
 from check_email_leak import check_email_leak
 from dashboard import generate_security_dashboard
