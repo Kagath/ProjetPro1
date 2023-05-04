@@ -1,15 +1,21 @@
-import os
-import subprocess
-from logger import log_info, log_error, save_result
+import nmap
 
-def run_nmap_scan():
-    target = input("Entrez l'adresse IP cible : ")
-    log_info(f"Scan Nmap lancé pour la cible : {target}")
+def run_nmap_scan(targets, options='-sV'):
+    nm = nmap.PortScanner()
+    nm.scan(hosts=targets, arguments=options)
 
-    try:
-        scan_result = subprocess.check_output(["nmap", "-sV", "-T4", target])
-        scan_result = scan_result.decode("utf-8")
-        print(scan_result)
-        
-        log_info(f"Scan Nmap terminé pour la cible : {target}")
-        save_result(scan_result, result_file="results/nmap_results.txt")
+    for host in nm.all_hosts():
+        print(f"Host : {host} ({nm[host].hostname()})")
+        print("State : {}".format(nm[host].state()))
+        for protocol in nm[host].all_protocols():
+            print("Protocol : {}".format(protocol))
+            ports = nm[host][protocol].keys()
+            for port in ports:
+                print("port : {}\tstate : {}".format(port, nm[host][protocol][port]["state"]))
+
+    return nm
+
+# Exemple d'utilisation de la fonction
+if __name__ == '__main__':
+    targets = '192.168.1.1-255'  # Exemple de cibles: une plage d'adresses IP
+    scan_results = run_nmap_scan(targets)
