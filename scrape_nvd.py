@@ -1,4 +1,5 @@
 import requests
+
 from bs4 import BeautifulSoup
 from logger import log_info, log_error, save_result
 
