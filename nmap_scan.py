@@ -5,7 +5,7 @@ def run_nmap_scan():
     targets = input("Veuillez entrer l'adresse IP, la plage d'adresses IP ou le CIDR à scanner (exemple : 192.168.1.0/24 ou 192.168.1.1-192.168.1.254) : ")
     ports = "22,21,23,443,80,53,135,8080,8888" # Ports à scanner
     options = "-A -O -sV -T4" # Options pour le scan Nmap
-    print("Buvez un cafe, ça risque de prendre du temps..")
+    print("Buvez un café, ça risque de prendre du temps..")
     print("Démarrage du scan Nmap sur les cibles.")
     
     log_info(f"Démarrage du scan Nmap sur les cibles : {targets}, ports : {ports}")
