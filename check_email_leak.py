@@ -1,4 +1,5 @@
 import requests
+
 from logger import log_info, log_error, save_result
 
 def run_email_leak_scan():
