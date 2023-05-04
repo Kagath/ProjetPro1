@@ -1,80 +1,55 @@
 import os
+import sys
 
-from logger import log_info, log_error
+from pymetasploit3.msfrpc import MsfRpcClient
+from nmap_scan import run_nmap_scan
+from scrape_nvd import run_nvd_scrape
+from check_email_leak import run_email_leak_scan
+from dashboard import generate_dashboard
+from dashboard import clear_logs_and_results
 
-def generate_dashboard():
-    print("\nCréation du tableau de bord de sécurité...")
+def create_directory(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
-    # Liste des fichiers de résultats
-    result_files = [
-        "results/nmap_results.txt",
-        "results/metasploit_results.txt",
-        "results/nvd_results.txt",
-        "results/email_leak_results.txt",
-    ]
+# Vérifiez et créez les dossiers 'logs' et 'results'
+create_directory("logs")
+create_directory("results")
 
-    # Liste des fichiers de journaux
-    log_files = [
-        "logs/nmap_scan.log",
-        "logs/metasploit_scan.log",
-        "logs/scrape_nvd.log",
-        "logs/check_email_leak.log",
-    ]
+def main():
+    while True:
+        print("Veuillez choisir une option:")
+        print("1. Exécuter un scan Nmap")
+        print("2. Exécuter une simulation d'attaque avec Metasploit")
+        print("3. Récupérer les vulnérabilités critiques à jour")
+        print("4. Vérifier les fuites d'email")
+        print("5. Générer un tableau de bord de sécurité")
+        print("6. Effacer tous les fichiers de résultats et de journaux")
+        print("0. Quitter")
 
-    with open("results/dashboard.txt", "w") as dashboard:
-        dashboard.write("Tableau de bord de sécurité\n")
-        dashboard.write("============================\n\n")
+        choice = input("Entrez le numéro de votre choix: ")
 
-        for result_file in result_files:
-            try:
-                with open(result_file, "r") as f:
-                    dashboard.write(f"{os.path.basename(result_file)}\n")
-                    dashboard.write("--------------------\n")
-                    dashboard.write(f.read())
-                    dashboard.write("\n")
-            except FileNotFoundError:
-                print(f"Le fichier {result_file} est introuvable.")
+        if choice == "1":
+            run_nmap_scan()
+        elif choice == "2":
+            target = input("Entrez la cible pour la simulation d'attaque Metasploit (IP): ")
+            run_metasploit_scan(target)
+        elif choice == "3":
+            year = input("Entrez l'année pour récupérer les vulnérabilités NVD (par exemple, 2022): ")
+            scrape_nvd_vulnerabilities(year)
+        elif choice == "4":
+            email = input("Entrez l'adresse e-mail à vérifier pour les fuites de données: ")
+            check_email_leak(email)
+        elif choice == "5":
+            generate_dashboard()
+        elif choice == "6":
+            clear_logs_and_results()
+            
+        elif choice == "0":
+            print("Au revoir!")
+            sys.exit(0)
+        else:
+            print("Choix invalide. Veuillez réessayer.")
 
-        dashboard.write("\nLogs\n")
-        dashboard.write("====\n\n")
-
-        for log_file in log_files:
-            try:
-                with open(log_file, "r") as f:
-                    dashboard.write(f"{os.path.basename(log_file)}\n")
-                    dashboard.write("----------------\n")
-                    dashboard.write(f.read())
-                    dashboard.write("\n")
-            except FileNotFoundError:
-                print(f"Le fichier {log_file} est introuvable.")
-
-    print("\nTableau de bord de sécurité créé avec succès dans results/dashboard.txt.")
-
-def clear_logs_and_results():
-    log_files = [
-        "logs/nmap_scan.log",
-        "logs/metasploit_scan.log",
-        "logs/scrape_nvd.log",
-        "logs/error.log",
-        "logs/info.log",
-        "logs/check_email_leak.log",
-    ]
-
-    result_files = [
-        "results/nmap_results.txt",
-        "results/metasploit_results.txt",
-        "results/nvd_results.txt",
-        "results/email_leak_results.txt",
-        "results/dashboard.txt",
-    ]
-
-    files_to_remove = log_files + result_files
-
-    for file_path in files_to_remove:
-        try:
-            os.remove(file_path)
-            print(f"Fichier supprimé : {file_path}")
-        except FileNotFoundError:
-            print(f"Le fichier {file_path} est introuvable.")
-
-    print("\nTous les fichiers de résultats et de journaux ont été supprimés.")
+if __name__ == '__main__':
+    main()
