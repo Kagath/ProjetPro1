@@ -1,4 +1,9 @@
-import requests
+from nmap_scan import run_nmap_scan
+from metasploit_scan import run_metasploit_scan
+from scrape_nvd import scrape_nvd_vulnerabilities
+from check_email_leak import check_email_leak
+from dashboard import generate_security_dashboard
+
 from bs4 import BeautifulSoup
 from logger import log_info, log_error, save_result
 
