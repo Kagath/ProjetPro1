@@ -19,6 +19,7 @@ def generate_dashboard():
         "logs/metasploit_scan.log",
         "logs/scrape_nvd.log",
         "logs/check_email_leak.log",
+        "logs/info.log",
     ]
 
     with open("results/dashboard.txt", "w") as dashboard:
