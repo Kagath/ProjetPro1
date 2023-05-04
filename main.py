@@ -4,7 +4,7 @@ import sys
 from pymetasploit3.msfrpc import MsfRpcClient
 from nmap_scan import run_nmap_scan
 from scrape_nvd import run_nvd_scrape
-from check_email_leak import run_email_leak_scan
+from check_email_leak import run_check_email_leak
 from dashboard import generate_dashboard
 from dashboard import clear_logs_and_results
 
@@ -38,13 +38,11 @@ def main():
             year = input("Entrez l'année pour récupérer les vulnérabilités NVD (par exemple, 2022): ")
             scrape_nvd_vulnerabilities(year)
         elif choice == "4":
-            email = input("Entrez l'adresse e-mail à vérifier pour les fuites de données: ")
-            check_email_leak(email)
+            run_check_email_leak()
         elif choice == "5":
             generate_dashboard()
         elif choice == "6":
             clear_logs_and_results()
-            
         elif choice == "0":
             print("Au revoir!")
             sys.exit(0)
