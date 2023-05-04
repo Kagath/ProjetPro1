@@ -44,7 +44,8 @@ Maintenant, msfrpcd est en cours d'exécution et vous pouvez interagir avec lui 
 
 Clonez ce dépôt GitHub sur votre machine locale :
 
-git clone [https://github.com/Kagath/ProjetPro1.git]
+git clone https://github.com/Kagath/ProjetPro1.git
+
 pip install -r requirements.txt
 
 ./msfrpcd -P password -n -f -a 127.0.0.1
