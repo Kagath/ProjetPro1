@@ -1,41 +1,42 @@
 import os
+import sys
+from pymetasploit3.msfrpc import MsfRpcClient
 from nmap_scan import run_nmap_scan
-from metasploit_attack import run_metasploit_attack
-from scrape_nvd import run_nvd_scrape
-from check_email_leak import run_email_leak_scan
-from dashboard import generate_dashboard
+from scrape_nvd import scrape_nvd_vulnerabilities
+from check_email_leak import check_email_leak
+from security_dashboard import generate_security_dashboard
 
 def main():
-    if not os.path.exists("logs"):
-        os.mkdir("logs")
-    if not os.path.exists("results"):
-        os.mkdir("results")
-
     while True:
-        print("Sélectionnez une fonctionnalité à exécuter :")
-        print("1. Scanner les vulnérabilités avec Nmap")
-        print("2. Simuler une attaque avec Metasploit")
-        print("3. Récupérer les vulnérabilités critiques (scrapping NVD)")
-        print("4. Vérifier les fuites d'emails avec l'API Have I Been Pwned")
+        print("Veuillez choisir une option:")
+        print("1. Exécuter un scan Nmap")
+        print("2. Exécuter une simulation d'attaque avec Metasploit")
+        print("3. Récupérer les vulnérabilités critiques à jour (NVD)")
+        print("4. Vérifier les fuites d'email")
         print("5. Générer un tableau de bord de sécurité")
-        print("6. Quitter")
+        print("0. Quitter")
 
-        choice = input("Entrez le numéro de la fonctionnalité choisie : ")
+        choice = input("Entrez le numéro de votre choix: ")
 
         if choice == "1":
-            run_nmap_scan()
+            targets = input("Entrez les cibles pour le scan Nmap (IPs ou plages d'IPs): ")
+            run_nmap_scan(targets)
         elif choice == "2":
-            run_metasploit_attack()
+            target = input("Entrez la cible pour la simulation d'attaque Metasploit (IP): ")
+            run_metasploit_scan(target)
         elif choice == "3":
-            run_nvd_scrape()
+            year = input("Entrez l'année pour récupérer les vulnérabilités NVD (par exemple, 2022): ")
+            scrape_nvd_vulnerabilities(year)
         elif choice == "4":
-            run_email_leak_scan()
+            email = input("Entrez l'adresse e-mail à vérifier pour les fuites de données: ")
+            check_email_leak(email)
         elif choice == "5":
-            generate_dashboard()
-        elif choice == "6":
-            break
+            generate_security_dashboard()
+        elif choice == "0":
+            print("Au revoir!")
+            sys.exit(0)
         else:
             print("Choix invalide. Veuillez réessayer.")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
