@@ -1,9 +1,4 @@
-from nmap_scan import run_nmap_scan
-from pymetasploit3.msfrpc import MsfRpcClient
-from scrape_nvd import scrape_nvd_vulnerabilities
-from check_email_leak import check_email_leak
-from dashboard import generate_security_dashboard
-
+import requests
 from bs4 import BeautifulSoup
 from logger import log_info, log_error, save_result
 
@@ -21,3 +16,7 @@ def run_nvd_scrape():
         save_result(f"Vulnérabilités critiques trouvées : {len(critical_vulns)}", result_file="results/nvd_results.txt")
     else:
         log_error(f"Erreur lors de la récupération des données du NVD (code {response.status_code})")
+
+# Pour tester la fonction run_nvd_scrape() directement
+if __name__ == "__main__":
+    run_nvd_scrape()
