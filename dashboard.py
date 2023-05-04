@@ -1,34 +1,51 @@
+import os
+
 from logger import log_info, log_error
 
 def generate_dashboard():
-    log_info("Génération du tableau de bord de sécurité")
+    print("\nCréation du tableau de bord de sécurité...")
 
-    try:
-        with open("results/nmap_results.txt", "r") as nmap_results:
-            nmap_data = nmap_results.read()
+    # Liste des fichiers de résultats
+    result_files = [
+        "results/nmap_results.txt",
+        "results/metasploit_results.txt",
+        "results/nvd_results.txt",
+        "results/email_leak_results.txt",
+    ]
 
-        with open("results/metasploit_results.txt", "r") as metasploit_results:
-            metasploit_data = metasploit_results.read()
+    # Liste des fichiers de journaux
+    log_files = [
+        "logs/nmap_scan.log",
+        "logs/metasploit_scan.log",
+        "logs/scrape_nvd.log",
+        "logs/check_email_leak.log",
+    ]
 
-        with open("results/nvd_results.txt", "r") as nvd_results:
-            nvd_data = nvd_results.read()
+    with open("results/dashboard.txt", "w") as dashboard:
+        dashboard.write("Tableau de bord de sécurité\n")
+        dashboard.write("============================\n\n")
 
-        with open("results/email_leak_results.txt", "r") as email_leak_results:
-            email_leak_data = email_leak_results.read()
+        for result_file in result_files:
+            try:
+                with open(result_file, "r") as f:
+                    dashboard.write(f"{os.path.basename(result_file)}\n")
+                    dashboard.write("--------------------\n")
+                    dashboard.write(f.read())
+                    dashboard.write("\n")
+            except FileNotFoundError:
+                print(f"Le fichier {result_file} est introuvable.")
 
-        dashboard_data = f"""Tableau de bord de sécurité :
-        \n=== Résultats Nmap ===
-        \n{nmap_data}
-        \n=== Résultats Metasploit ===
-        \n{metasploit_data}
-        \n=== Résultats NVD ===
-        \n{nvd_data}
-        \n=== Résultats des fuites d'email ===
-        \n{email_leak_data}
-        """
+        dashboard.write("\nLogs\n")
+        dashboard.write("====\n\n")
 
-        print(dashboard_data)
-        log_info("Tableau de bord de sécurité généré avec succès")
+        for log_file in log_files:
+            try:
+                with open(log_file, "r") as f:
+                    dashboard.write(f"{os.path.basename(log_file)}\n")
+                    dashboard.write("----------------\n")
+                    dashboard.write(f.read())
+                    dashboard.write("\n")
+            except FileNotFoundError:
+                print(f"Le fichier {log_file} est introuvable.")
 
-    except FileNotFoundError as e:
-        log_error(f"Erreur lors de la génération du tableau de bord de sécurité : {e}")
+    print("\nTableau de bord de sécurité créé avec succès dans results/dashboard.txt.")
