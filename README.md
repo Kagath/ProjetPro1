@@ -6,9 +6,10 @@ Les fonctionnalités incluent :
 
 1. Scanner les vulnérabilités avec Nmap
 2. Simuler une attaque avec Metasploit
-3. Récupérer les vulnérabilités critiques (scrapping NVD)
+3. Récupérer les vulnérabilités critiques
 4. Vérifier les fuites d'emails avec l'API Have I Been Pwned
 5. Générer un tableau de bord de sécurité
+6. Effacer tous les fichiers de résultats et de journaux
 
 ## Prérequis
 
