@@ -3,3 +3,4 @@ python-nmap==0.7.1
 requests==2.29.0
 pymetasploit3==1.0.3
 lxml==4.9.2
+dnspython==2.2.0
