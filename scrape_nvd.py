@@ -3,6 +3,8 @@ import csv
 from datetime import datetime, timedelta
 
 def scrape_nvd_vulnerabilities():
+    print("\nBuvez un café, ça risque de prendre du temps..")
+    print("Récupération des CVEs depuis la NVD des USA.")
     base_url = "https://services.nvd.nist.gov/rest/json/cves/1.0"
 
     today = datetime.now()
