@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import sys
 
@@ -7,6 +9,7 @@ from scrape_nvd import run_nvd_scrape
 from check_email_leak import run_check_email_leak
 from dashboard import generate_dashboard
 from dashboard import clear_logs_and_results
+from dig import run_dns_enum
 
 def clear_screen():
     if os.name == 'nt':  # Pour Windows
@@ -34,7 +37,8 @@ def main():
         print("3. Récupérer les vulnérabilités critiques à jour")
         print("4. Vérifier les fuites d'email")
         print("5. Générer un tableau de bord de sécurité")
-        print("6. Effacer tous les fichiers de résultats et de journaux\n")
+        print("6. Effacer tous les fichiers de résultats et de journaux")
+        print("7. Enumération DNS avec dig\n")
         print("0. Quitter\n")
 
         print("________________________________________________________")
@@ -54,11 +58,14 @@ def main():
             generate_dashboard()
         elif choice == "6":
             clear_logs_and_results()
+        elif choice == "7":
+            run_dns_enum()
         elif choice == "0":
             print("\nAu revoir!\n")
+            print("________________________________________________________")
             sys.exit(0)
         else:
-            print("Choix invalide. Veuillez réessayer.")
+            print("\nChoix invalide ! Veuillez réessayer.")
 
 if __name__ == '__main__':
     main()
