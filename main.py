@@ -5,7 +5,7 @@ import sys
 
 from pymetasploit3.msfrpc import MsfRpcClient
 from nmap_scan import run_nmap_scan
-from scrape_nvd import run_nvd_scrape
+from scrape_nvd import scrape_nvd_vulnerabilities
 from check_email_leak import run_check_email_leak
 from dashboard import generate_dashboard
 from dashboard import clear_logs_and_results
@@ -50,8 +50,8 @@ def main():
             target = input("Entrez la cible pour la simulation d'attaque Metasploit (IP): ")
             run_metasploit_scan(target)
         elif choice == "3":
-            year = input("Entrez l'année pour récupérer les vulnérabilités NVD (par exemple, 2022): ")
-            scrape_nvd_vulnerabilities(year)
+            scrape_nvd_vulnerabilities()
+            print("\nRésultat disponible dans le dossier results, en format TXT et CSV(à ouvrir avec un logiciel tableur).\n")
         elif choice == "4":
             run_check_email_leak()
         elif choice == "5":
