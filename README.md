@@ -10,6 +10,7 @@ Les fonctionnalités incluent :
 4. Vérifier les fuites d'emails avec l'API Have I Been Pwned
 5. Générer un tableau de bord de sécurité
 6. Effacer tous les fichiers de résultats et de journaux
+7. Enumération DNS avec dig
 
 ## Prérequis
 
