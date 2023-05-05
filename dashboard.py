@@ -9,7 +9,6 @@ def generate_dashboard():
     result_files = [
         "results/nmap_results.txt",
         "results/metasploit_results.txt",
-        "results/nvd_results.txt",
         "results/email_leak_results.txt",
     ]
 
