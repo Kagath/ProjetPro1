@@ -3,20 +3,19 @@
 import os
 import sys
 
-from pymetasploit3.msfrpc import MsfRpcClient
 from nmap_scan import run_nmap_scan
 from scrape_nvd import scrape_nvd_vulnerabilities
 from check_email_leak import run_check_email_leak
-from dashboard import generate_dashboard
-from dashboard import clear_logs_and_results
+from dashboard import generate_dashboard, clear_logs_and_results
 from dig import run_dns_enum
+from metasploit_attack import run_metasploit_scan
 
 def clear_screen():
     if os.name == 'nt':  # Pour Windows
         os.system('cls')
     else:  # Pour Unix/Linux/Mac
         os.system('clear')
-        
+
 def create_directory(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -28,7 +27,7 @@ create_directory("results")
 def main():
 
     clear_screen()
-    
+
     while True:
         print("________________________________________________________")
         print("Veuillez choisir une option: \n")
