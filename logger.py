@@ -1,6 +1,13 @@
 import os
 import datetime
 
+def create_directory(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+# Vérifie et crée le dossier 'logs' si nécessaire
+create_directory("logs")
+
 def log(log_type, message, log_file):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_message = f"{timestamp} [{log_type}] {message}\n"
