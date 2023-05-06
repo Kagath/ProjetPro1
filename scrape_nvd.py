@@ -1,5 +1,6 @@
 import requests
 import csv
+
 from datetime import datetime, timedelta
 
 def scrape_nvd_vulnerabilities():
@@ -19,35 +20,36 @@ def scrape_nvd_vulnerabilities():
         "resultsPerPage": 2000
     }
 
-    response = requests.get(base_url, params=params)
+    try:
+        response = requests.get(base_url, params=params)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(f"Erreur lors de la récupération des données : {e}")
+        return
 
-    if response.status_code == 200:
-        json_data = response.json()
-        vulnerabilities = json_data["result"]["CVE_Items"]
+    json_data = response.json()
+    vulnerabilities = json_data["result"]["CVE_Items"]
 
-        with open('results/vulnerabilities.csv', 'w', newline='', encoding='utf-8') as csv_file, open('results/vulnerabilities.txt', 'w', encoding='utf-8') as txt_file:
-            fieldnames = ['CVE ID', 'Published Date', 'Last Modified Date', 'Description']
-            writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-            writer.writeheader()
+    with open('results/vulnerabilities.csv', 'w', newline='', encoding='utf-8') as csv_file, open('results/vulnerabilities.txt', 'w', encoding='utf-8') as txt_file:
+        fieldnames = ['CVE ID', 'Published Date', 'Last Modified Date', 'Description']
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer.writeheader()
 
-            for vulnerability in vulnerabilities:
-                cve_id = vulnerability["cve"]["CVE_data_meta"]["ID"]
-                published_date = vulnerability["publishedDate"]
-                last_modified_date = vulnerability["lastModifiedDate"]
-                description = vulnerability["cve"]["description"]["description_data"][0]["value"]
+        for vulnerability in vulnerabilities:
+            cve_id = vulnerability["cve"]["CVE_data_meta"]["ID"]
+            published_date = vulnerability["publishedDate"]
+            last_modified_date = vulnerability["lastModifiedDate"]
+            description = vulnerability["cve"]["description"]["description_data"][0]["value"]
 
-                writer.writerow({
-                    'CVE ID': cve_id,
-                    'Published Date': published_date,
-                    'Last Modified Date': last_modified_date,
-                    'Description': description
-                })
+            writer.writerow({
+                'CVE ID': cve_id,
+                'Published Date': published_date,
+                'Last Modified Date': last_modified_date,
+                'Description': description
+            })
 
-                txt_file.write(f"CVE ID: {cve_id}\n")
-                txt_file.write(f"Published Date: {published_date}\n")
-                txt_file.write(f"Last Modified Date: {last_modified_date}\n")
-                txt_file.write(f"Description: {description}\n")
-                txt_file.write("\n")
-
-    else:
-        print(f"Error: Unable to fetch data (HTTP {response.status_code})")
+            txt_file.write(f"CVE ID: {cve_id}\n")
+            txt_file.write(f"Published Date: {published_date}\n")
+            txt_file.write(f"Last Modified Date: {last_modified_date}\n")
+            txt_file.write(f"Description: {description}\n")
+            txt_file.write("\n")
