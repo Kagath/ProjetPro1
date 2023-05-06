@@ -30,6 +30,9 @@ def run_check_email_leak():
         elif response.status_code == 404:
             log_info(f"Aucune fuite de données trouvée pour l'adresse e-mail : {email} \n")
             print(f"Aucune fuite de données trouvée pour l'adresse e-mail : {email} \n")
+        elif response.status_code == 429:
+            log_error(f"Trop de requêtes pour l'API. Veuillez réessayer plus tard.")
+            print(f"Trop de requêtes pour l'API. Veuillez réessayer plus tard.")
         else:
             log_error(f"Erreur lors de la récupération des données de fuites pour l'adresse e-mail : {email} (code {response.status_code})")
     except Exception as e:
