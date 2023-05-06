@@ -38,9 +38,9 @@ sudo systemctl start postgresql
 sudo systemctl enable postgresql
 sudo msfdb init
 ```
-2. Démarrez msfrpcd avec le mot de passe de votre choix (remplacez my_password par un mot de passe de votre choix):
+2. Démarrez msfrpcd avec le mot de passe de votre choix (remplacez my_password par un mot de passe de votre choix, à remplacer également dans le fichier "metasploit_attack.py" ligne 6):
 ```bash
-msfrpcd -P password -S -f
+msfrpcd -P my_password -S -f
 ```
 Maintenant, msfrpcd est en cours d'exécution et vous pouvez interagir avec lui à l'aide de la bibliothèque python-metasploit. Assurez-vous de modifier le mot de passe dans le script metasploit_scan.py pour correspondre au mot de passe que vous avez défini pour msfrpcd.
 
