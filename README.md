@@ -1,4 +1,5 @@
-# ProjetPro1 - Boîte à outils de cybersécurité
+# ProjetPro1
+## Boite à outils de cybersécurité
 
 Ce projet est une boîte à outils de cybersécurité qui comprend plusieurs fonctionnalités pour surveiller et tester la sécurité de votre SI.
 
@@ -89,8 +90,10 @@ Les résultats des différentes fonctionnalités seront enregistrés dans le sou
 
 ## Contribution
 
-Les contributions sont les bienvenues ! N'hésitez pas à soumettre des rapports de bugs, des suggestions d'amélioration ou des pull requests.
+> Les contributions sont les bienvenues ! 
+> N'hésitez pas à soumettre des rapports de bugs, des suggestions d'amélioration ou des pull requests.
 
 ## Licence
 
-Ce projet est distribué sous la licence MIT. Consultez le fichier `LICENSE` pour plus d'informations.
+> Ce projet est distribué sous la licence MIT. 
+> Consultez le fichier `LICENSE` pour plus d'informations.
