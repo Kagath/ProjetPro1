@@ -2,6 +2,17 @@ import os
 
 from logger import log_info, log_error
 
+def write_section(dashboard, title, file_path):
+    try:
+        with open(file_path, "r") as f:
+            dashboard.write(f"{title}\n")
+            dashboard.write("-" * len(title) + "\n")
+            dashboard.write(f.read())
+            dashboard.write("\n")
+    except FileNotFoundError:
+        print(f"Le fichier {file_path} est introuvable.")
+
+
 def generate_dashboard():
     print("\nCréation du tableau de bord de sécurité...")
 
@@ -26,27 +37,13 @@ def generate_dashboard():
         dashboard.write("============================\n\n")
 
         for result_file in result_files:
-            try:
-                with open(result_file, "r") as f:
-                    dashboard.write(f"{os.path.basename(result_file)}\n")
-                    dashboard.write("--------------------\n")
-                    dashboard.write(f.read())
-                    dashboard.write("\n")
-            except FileNotFoundError:
-                print(f"Le fichier {result_file} est introuvable.")
+            write_section(dashboard, os.path.basename(result_file), result_file)
 
         dashboard.write("\nLogs\n")
         dashboard.write("====\n\n")
 
         for log_file in log_files:
-            try:
-                with open(log_file, "r") as f:
-                    dashboard.write(f"{os.path.basename(log_file)}\n")
-                    dashboard.write("----------------\n")
-                    dashboard.write(f.read())
-                    dashboard.write("\n")
-            except FileNotFoundError:
-                print(f"Le fichier {log_file} est introuvable.")
+            write_section(dashboard, os.path.basename(log_file), log_file)
 
     print("\nTableau de bord de sécurité créé avec succès dans results/dashboard.txt.")
 
