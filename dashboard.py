@@ -27,7 +27,9 @@ def generate_dashboard():
         "results/dashboard.txt",
         "results/dns_results.txt",
         "results/vulnerabilities.txt",
-        "results/find_sensitive_files_*.txt", # Ajout des résultats de find_sensitive_files.py
+        "results/find_sensitive_files_*.txt",
+        "results/https_results.txt",
+        "results/passwords.txt",
     ]
 
     # Liste des fichiers de journaux
@@ -37,7 +39,7 @@ def generate_dashboard():
         "logs/scrape_nvd.log",
         "logs/check_email_leak.log",
         "logs/info.log",
-        "logs/find_sensitive_files.log", # Ajout du fichier de logs de find_sensitive_files.py
+        "logs/find_sensitive_files.log",
     ]
 
     with open("results/dashboard.txt", "w") as dashboard:
