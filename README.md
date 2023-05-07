@@ -85,7 +85,7 @@ Les résultats des différentes fonctionnalités seront enregistrés dans le sou
 3. Récupérer les vulnérabilités critiques
 4. Vérifier les fuites d'e-mails avec l'API Have I Been Pwned
 5. Générer un tableau de bord de sécurité
-6. Effacer tous les fichiers de résultats et de journaux
+6. Effacer tous les fichiers de résultats, de journaux et de cache
 7. Enumération DNS avec dig
 
 ## Contribution
