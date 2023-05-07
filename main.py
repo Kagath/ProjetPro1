@@ -9,6 +9,7 @@ from check_email_leak import run_check_email_leak
 from dashboard import generate_dashboard, clear_logs_and_results
 from dig import run_dns_enum
 from metasploit_attack import run_metasploit_scan
+from find_sensitive_files import find_sensitive_files
 
 def clear_screen():
     if os.name == 'nt':  # Pour Windows
@@ -37,7 +38,8 @@ def main():
         print("4. Vérifier les fuites d'email")
         print("5. Générer un tableau de bord de sécurité")
         print("6. Effacer tous les fichiers de résultats et de journaux")
-        print("7. Enumération DNS avec dig\n")
+        print("7. Enumération DNS avec dig")
+        print("8. Rechercher des fichiers sensibles sur un site web\n")
         print("0. Quitter\n")
 
         print("________________________________________________________")
@@ -59,6 +61,8 @@ def main():
             clear_logs_and_results()
         elif choice == "7":
             run_dns_enum()
+        elif choice == "8":
+            find_sensitive_files()
         elif choice == "0":
             print("\nAu revoir!\n")
             print("________________________________________________________")
