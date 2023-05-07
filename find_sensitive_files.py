@@ -7,6 +7,9 @@ import string
 from bs4 import BeautifulSoup
 from urllib.parse import urlsplit, urljoin
 from logger import log_info, log_error
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 SENSITIVE_FILES = [
     "robots.txt",
@@ -27,7 +30,7 @@ def is_https():
     print("________________________________________________________")
     url = input("Entrez l'URL du site web que vous souhaitez scanner : \n")
     try:
-        response = requests.get(url)
+        response = requests.get(url, verify=False)
         is_https = response.url.startswith("https://")
 
         with open("results/https_results.txt", "a") as f:
