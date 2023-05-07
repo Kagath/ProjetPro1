@@ -88,6 +88,8 @@ Les résultats des différentes fonctionnalités seront enregistrés dans le sou
 6. Effacer tous les fichiers de résultats, de journaux et de cache
 7. Enumération DNS avec dig
 8. Rechercher des fichiers sensibles sur un site web
+9. Vérification de l'utilisation de HTTPS
+10. Génération d'un mot de passe sécurisé
 
 ## Contribution
 
