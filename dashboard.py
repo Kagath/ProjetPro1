@@ -20,7 +20,11 @@ def generate_dashboard():
     result_files = [
         "results/nmap_results.txt",
         "results/metasploit_results.txt",
+        "results/nvd_results.txt",
         "results/email_leak_results.txt",
+        "results/dashboard.txt",
+        "results/dns_results.txt",
+        "results/vulnerabilities.txt",
     ]
 
     # Liste des fichiers de journaux
@@ -63,6 +67,9 @@ def clear_logs_and_results():
         "results/nvd_results.txt",
         "results/email_leak_results.txt",
         "results/dashboard.txt",
+        "results/dns_results.txt",
+        "results/vulnerabilities.csv",
+        "results/vulnerabilities.txt",
     ]
 
     files_to_remove = log_files + result_files
