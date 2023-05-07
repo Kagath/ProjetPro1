@@ -10,6 +10,8 @@ from dashboard import generate_dashboard, clear_logs_and_results
 from dig import run_dns_enum
 from metasploit_attack import run_metasploit_scan
 from find_sensitive_files import find_sensitive_files
+from find_sensitive_files import generate_secure_password
+from find_sensitive_files import is_https
 
 def clear_screen():
     if os.name == 'nt':  # Pour Windows
@@ -31,15 +33,17 @@ def main():
 
     while True:
         print("________________________________________________________")
-        print("Veuillez choisir une option: \n")
+        print("\nVeuillez choisir une option: \n")
         print("1. Exécuter un scan Nmap")
         print("2. Exécuter une simulation d'attaque avec Metasploit")
         print("3. Récupérer les vulnérabilités critiques à jour")
-        print("4. Vérifier les fuites d'email")
+        print("4. Vérifier les fuites d'une adresse mail")
         print("5. Générer un tableau de bord de sécurité")
         print("6. Effacer tous les fichiers de résultats et de journaux")
-        print("7. Enumération DNS avec dig")
-        print("8. Rechercher des fichiers sensibles sur un site web\n")
+        print("7. Énumération DNS avec dig")
+        print("8. Rechercher des fichiers sensibles sur un site web")
+        print("9. Vérification de l'utilisation de HTTPS")
+        print("10. Génération d'un mot de passe sécurisé\n")
         print("0. Quitter\n")
 
         print("________________________________________________________")
@@ -63,6 +67,10 @@ def main():
             run_dns_enum()
         elif choice == "8":
             find_sensitive_files()
+        elif choice == "9":
+            is_https()
+        elif choice == "10":
+            generate_secure_password()
         elif choice == "0":
             print("\nAu revoir!\n")
             print("________________________________________________________")
