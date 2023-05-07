@@ -15,6 +15,7 @@ def write_section(dashboard, title, file_path):
 
 
 def generate_dashboard():
+    print("________________________________________________________")
     print("\nCréation du tableau de bord de sécurité...")
 
     # Liste des fichiers de résultats
@@ -26,6 +27,7 @@ def generate_dashboard():
         "results/dashboard.txt",
         "results/dns_results.txt",
         "results/vulnerabilities.txt",
+        "results/find_sensitive_files_*.txt", # Ajout des résultats de find_sensitive_files.py
     ]
 
     # Liste des fichiers de journaux
@@ -35,14 +37,16 @@ def generate_dashboard():
         "logs/scrape_nvd.log",
         "logs/check_email_leak.log",
         "logs/info.log",
+        "logs/find_sensitive_files.log", # Ajout du fichier de logs de find_sensitive_files.py
     ]
 
     with open("results/dashboard.txt", "w") as dashboard:
         dashboard.write("Tableau de bord de sécurité\n")
         dashboard.write("============================\n\n")
 
-        for result_file in result_files:
-            write_section(dashboard, os.path.basename(result_file), result_file)
+        for result_file in glob.glob("results/*"):
+            if result_file in result_files:
+                write_section(dashboard, os.path.basename(result_file), result_file)
 
         dashboard.write("\nLogs\n")
         dashboard.write("====\n\n")
@@ -50,7 +54,8 @@ def generate_dashboard():
         for log_file in log_files:
             write_section(dashboard, os.path.basename(log_file), log_file)
 
-    print("\nTableau de bord de sécurité créé avec succès dans results/dashboard.txt.")
+    print("________________________________________________________")
+    print("Tableau de bord de sécurité créé avec succès dans results/dashboard.txt.")
 
 def clear_logs_and_results():
     log_files = glob.glob("logs/*.log")
