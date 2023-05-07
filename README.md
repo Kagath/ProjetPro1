@@ -87,6 +87,7 @@ Les résultats des différentes fonctionnalités seront enregistrés dans le sou
 5. Générer un tableau de bord de sécurité
 6. Effacer tous les fichiers de résultats, de journaux et de cache
 7. Enumération DNS avec dig
+8. Rechercher des fichiers sensibles sur un site web
 
 ## Contribution
 
