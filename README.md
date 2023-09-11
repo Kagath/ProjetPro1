@@ -95,8 +95,3 @@ Les résultats des différentes fonctionnalités seront enregistrés dans le sou
 
 > Les contributions sont les bienvenues ! 
 > N'hésitez pas à soumettre des rapports de bugs, des suggestions d'amélioration ou des pull requests.
-
-## Licence
-
-> Ce projet est distribué sous la licence MIT. 
-> Consultez le fichier `LICENSE` pour plus d'informations.
